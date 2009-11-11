@@ -1,7 +1,7 @@
 
 Includes:
   sfMongoDBCache by gregoire
-  sfMemcachedCache by dasher
+  sfMemcachedCache by dasher (Config: http://gist.github.com/232225)
 
 Installing repcached - Memcache + replication
 
