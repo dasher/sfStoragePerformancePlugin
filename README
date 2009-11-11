@@ -1,9 +1,13 @@
+---
+title: sfPerformanceSet
+---
 
 Includes:
   sfMongoDBCache by gregoire
   sfMemcachedCache by dasher (Config: http://gist.github.com/232225)
 
 Installing repcached - Memcache + replication
+=============================================
 
 $ wget http://downloads.sourceforge.net/repcached/memcached-1.2.6-repcached-2.2.tar.gz
 $ tar zxf memcached-1.2.6-repcached-2.2.tar.gz
