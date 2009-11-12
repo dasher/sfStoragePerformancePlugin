@@ -10,13 +10,21 @@ Installing repcached - Memcache + replication
 =============================================
 
 $ wget http://downloads.sourceforge.net/repcached/memcached-1.2.6-repcached-2.2.tar.gz
+
 $ tar zxf memcached-1.2.6-repcached-2.2.tar.gz
+
 $ cd memcached-1.2.6-repcached-2.2
+
 --- OR ---
+
 $ wget http://www.danga.com/memcached/dist/memcached-1.2.6.tar.gz
+
 $ tar zxf memcached-1.2.6.tar.gz
+
 $ cd memcached-1.2.6
+
 $ wget http://downloads.sourceforge.net/repcached/repcached-2.2-1.2.6.patch.gz
+
 $ gzip -cd repcached-2.2-1.2.6.patch.gz | patch -p1
 
 $ ./configure --enable-replication
