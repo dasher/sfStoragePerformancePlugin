@@ -26,7 +26,7 @@ class sfMemcachedCache extends sfCache
   {
     parent::initialize($options);
 
-    if (extension_loaded('memcached'))
+    if (!extension_loaded('memcached'))
     {
       throw new sfInitializationException('You must have memcached installed and enabled to use sfMemcachedCache class.');
     }
@@ -46,10 +46,11 @@ class sfMemcachedCache extends sfCache
       else
       {
         //$method = $this->getOption('persistent', true) ? 'pconnect' : 'connect';
-        if (!$this->memcached->addServer($this->getOption('host', 'localhost'), $this->getOption('port', 11211), $this->getOption('weight', 100)))
-        {
-          throw new sfInitializationException(sprintf('Unable to connect to the memcached server (%s:%s).', $this->getOption('host', 'localhost'), $this->getOption('port', 11211)));
-        }
+        $this->memcached->addServer(
+            $this->getOption('host', 'localhost'),
+            $this->getOption('port', 11211),
+            $this->getOption('weight', 100));
+
       }
     }
   }
@@ -96,12 +97,12 @@ class sfMemcachedCache extends sfCache
       $this->setCacheInfo($key);
     }
 
-    if (false !== $this->memcached->replace($this->getOption('prefix').$key, $data, false, time() + $lifetime))
+    if (false !== $this->memcached->replace($this->getOption('prefix').$key, $data, time() + $lifetime))
     {
       return true;
     }
 
-    return $this->memcached->set($this->getOption('prefix').$key, $data, false, time() + $lifetime);
+    return $this->memcached->set($this->getOption('prefix').$key, $data, time() + $lifetime);
   }
 
   /**
@@ -206,7 +207,7 @@ class sfMemcachedCache extends sfCache
    */
   protected function setMetadata($key, $lifetime)
   {
-    $this->memcached->set($this->getOption('prefix').'_metadata'.self::SEPARATOR.$key, array('lastModified' => time(), 'timeout' => time() + $lifetime), false, $lifetime);
+    $this->memcached->set($this->getOption('prefix').'_metadata'.self::SEPARATOR.$key, array('lastModified' => time(), 'timeout' => time() + $lifetime),  $lifetime);
   }
 
   /**
@@ -239,3 +240,4 @@ class sfMemcachedCache extends sfCache
     return $keys;
   }
 }
+
